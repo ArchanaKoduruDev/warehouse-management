@@ -4,8 +4,7 @@ import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 
 @QuarkusIntegrationTest
 public class WarehouseEndpointIT {
@@ -45,4 +44,14 @@ public class WarehouseEndpointIT {
              containsString("AMSTERDAM-001"),
              containsString("TILBURG-001"));
   }
+
+    @Test
+    public void getUnknownWarehouseShouldReturn400WithErrorPayload() {
+        given()
+                .when().get("warehouse/UNKNOWN")
+                .then()
+                .statusCode(400)
+                .body("error", containsString("not found"))
+                .body("exceptionType", equalTo("WarehouseNotFoundException"));
+    }
 }

@@ -16,7 +16,7 @@ import org.jboss.logging.Logger;
 @ApplicationScoped
 public class CreateWarehouseUseCase implements CreateWarehouseOperation {
 
-    private static final Logger log = Logger.getLogger(WarehouseRepository.class);
+    private static final Logger log = Logger.getLogger(CreateWarehouseUseCase.class);
 
     private final LocationResolver locationResolver;
     private final WarehouseStore warehouseStore;

@@ -2,7 +2,6 @@ package com.fulfilment.application.monolith.warehouses.exceptions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fulfilment.application.monolith.warehouses.exceptions.WarehouseException;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
@@ -22,13 +21,18 @@ public class GlobalExceptionHandler implements ExceptionMapper<Exception> {
     public Response toResponse(Exception exception) {
         LOGGER.error("Handling exception globally", exception);
 
+        Throwable ex = exception;
+        while (ex.getCause() != null && !(ex instanceof WarehouseException) && !(ex instanceof WebApplicationException)) {
+            ex = ex.getCause();
+        }
+
         int status;
         String message;
 
-        if (exception instanceof WarehouseException we) {
+        if (ex instanceof WarehouseException we) {
             status = 400; // Bad Request for domain validation errors
             message = we.getMessage();
-        } else if (exception instanceof WebApplicationException webEx) {
+        } else if (ex instanceof WebApplicationException webEx) {
             status = webEx.getResponse().getStatus();
             message = webEx.getMessage();
         } else {

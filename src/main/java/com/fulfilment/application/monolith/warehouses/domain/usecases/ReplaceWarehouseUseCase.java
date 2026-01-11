@@ -18,7 +18,8 @@ public class ReplaceWarehouseUseCase implements ReplaceWarehouseOperation {
 
     @Inject
     WarehouseStore warehouseStore;
-    private static final Logger log = Logger.getLogger(WarehouseRepository.class);
+
+    private static final Logger log = Logger.getLogger(ReplaceWarehouseUseCase.class);
 
   public ReplaceWarehouseUseCase(WarehouseStore warehouseStore) {
     this.warehouseStore = warehouseStore;
