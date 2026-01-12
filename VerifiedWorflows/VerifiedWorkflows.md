@@ -94,3 +94,22 @@ Example error response:
   "exceptionType": "WarehouseNotFoundException",
   "code": 400
 }
+
+```
+## CI/CD
+
+This project includes a GitHub Actions CI pipeline that:
+- Builds the application
+- Runs unit and integration tests
+- Generates JaCoCo code coverage reports
+
+The pipeline runs automatically on:
+- Push to main branch
+- Pull requests
+
+### Health Checks
+The application exposes health endpoints using Quarkus SmallRye Health:
+- `/q/health`
+- `/q/health/live`
+- `/q/health/ready`
+Note: screenshot attached for reference
